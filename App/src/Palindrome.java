@@ -1,22 +1,28 @@
 public class Palindrome {
-    static void main() {
 
-        // Hardcoded string
-        String text = "madam";
+    public static void main(String[] args) {
 
-        // Reverse the string
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+
+        // Take input from user
+        System.out.print("Enter text: ");
+        String input = scanner.nextLine();
+
+        // Variable to store reversed string
         String reversed = "";
 
-        for (int i = text.length() - 1; i >= 0; i--) {
-            reversed = reversed + text.charAt(i);
+        // Reverse the string using for loop
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed = reversed + input.charAt(i);
         }
 
-        // Check palindrome condition
-        if (text.equals(reversed)) {
-            System.out.println("Input text: " + text + " is it palindrome? : true");
+        // Compare original and reversed string
+        if (input.equals(reversed)) {
+            System.out.println("Input text: " + input + " is it palindrome? : true");
         } else {
-            System.out.println("Input text: " + text + " is it palindrome? : false");
+            System.out.println("Input text: " + input + " is it palindrome? : false");
         }
+
+        scanner.close();
     }
 }
-
