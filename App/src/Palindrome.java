@@ -9,25 +9,24 @@ public class Palindrome {
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
 
-        // Convert string to character array
-        char[] chars = input.toCharArray();
+        // Create stack
+        java.util.Stack<Character> stack = new java.util.Stack<>();
 
-        // Two-pointer approach
-        int start = 0;
-        int end = chars.length - 1;
-
-        boolean isPalindrome = true;
-
-        while (start < end) {
-            if (chars[start] != chars[end]) {
-                isPalindrome = false;
-                break;
-            }
-            start++;
-            end--;
+        // Push characters into stack
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
         }
 
-        // Display result
+        // Pop characters and build reversed string
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed = reversed + stack.pop();
+        }
+
+        // Compare original and reversed string
+        boolean isPalindrome = input.equals(reversed);
+
+        // Print result
         System.out.println("Input text: " + input + " is it palindrome? : " + isPalindrome);
 
         scanner.close();
