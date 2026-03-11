@@ -1,43 +1,61 @@
 public class Palindrome {
 
-    // PalindromeChecker class encapsulates palindrome logic
-    static class PalindromeChecker {
-
-        // Method to check if a string is palindrome
-        public boolean checkPalindrome(String input) {
-            // Simple two-pointer approach
-            int start = 0;
-            int end = input.length() - 1;
-
-            while (start < end) {
-                if (input.charAt(start) != input.charAt(end)) {
-                    return false;
-                }
-                start++;
-                end--;
-            }
-
-            return true;
-        }
-    }
-
     public static void main(String[] args) {
 
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        java.util.Scanner sc = new java.util.Scanner(System.in);
 
-        // Take input
-        System.out.print("Enter text: ");
-        String input = scanner.nextLine();
+        System.out.print("Enter string: ");
+        String input = sc.nextLine();
 
-        // Create PalindromeChecker object
-        PalindromeChecker checker = new PalindromeChecker();
+        System.out.println("1. Stack Strategy");
+        System.out.println("2. Deque Strategy");
+        System.out.print("Choice: ");
+        int ch = sc.nextInt();
 
-        // Call checkPalindrome() method
-        boolean result = checker.checkPalindrome(input);
+        PalindromeStrategy strategy;
 
-        // Print result
-        System.out.println("Input text: " + input + " is it palindrome? : " + result);
+        if (ch == 1)
+            strategy = new StackStrategy();
+        else
+            strategy = new DequeStrategy();
 
-        scanner.close();
+        if (strategy.check(input))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not Palindrome");
+    }
+}
+
+interface PalindromeStrategy {
+    boolean check(String input);
+}
+
+class StackStrategy implements PalindromeStrategy {
+    public boolean check(String input) {
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+
+        for (char c : input.toCharArray())
+            stack.push(c);
+
+        for (char c : input.toCharArray())
+            if (c != stack.pop())
+                return false;
+
+        return true;
+    }
+}
+
+class DequeStrategy implements PalindromeStrategy {
+    public boolean check(String input) {
+        java.util.Deque<Character> dq = new java.util.ArrayDeque<>();
+
+        for (char c : input.toCharArray())
+            dq.add(c);
+
+        while (dq.size() > 1)
+            if (dq.removeFirst() != dq.removeLast())
+                return false;
+
+        return true;
     }
 }
