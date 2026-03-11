@@ -1,34 +1,32 @@
 public class Palindrome {
 
-    // Recursive method to check palindrome
-    static boolean isPalindrome(String str, int start, int end) {
-        // Base condition: if start >= end, all characters matched
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters at start and end do not match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call for next inner pair
-        return isPalindrome(str, start + 1, end - 1);
-    }
-
     public static void main(String[] args) {
 
         java.util.Scanner scanner = new java.util.Scanner(System.in);
 
-        // Take input from user
+        // Take input
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
 
-        // Call recursive method
-        boolean result = isPalindrome(input, 0, input.length() - 1);
+        // Normalize input: remove spaces and convert to lowercase
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        // Two-pointer palindrome check
+        int start = 0;
+        int end = normalized.length() - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
 
         // Print result
-        System.out.println("Input text: " + input + " is it palindrome? : " + result);
+        System.out.println("Input text: " + input + " is it palindrome? : " + isPalindrome);
 
         scanner.close();
     }
