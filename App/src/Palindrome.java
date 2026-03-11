@@ -5,26 +5,34 @@ public class Palindrome {
 
         java.util.Scanner scanner = new java.util.Scanner(System.in);
 
-        // Take input from user
+
+        // Take input
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
 
-        // Create stack
+        // Create Queue and Stack
+        java.util.Queue<Character> queue = new java.util.LinkedList<>();
         java.util.Stack<Character> stack = new java.util.Stack<>();
 
-        // Push characters into stack
+        // Enqueue and Push characters
         for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
+            char ch = input.charAt(i);
+            queue.add(ch);   // enqueue
+            stack.push(ch);  // push
         }
 
-        // Pop characters and build reversed string
-        String reversed = "";
-        while (!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
-        }
+        boolean isPalindrome = true;
 
-        // Compare original and reversed string
-        boolean isPalindrome = input.equals(reversed);
+        // Compare dequeue (queue) and pop (stack)
+        while (!queue.isEmpty()) {
+            char fromQueue = queue.remove(); // dequeue
+            char fromStack = stack.pop();    // pop
+
+            if (fromQueue != fromStack) {
+                isPalindrome = false;
+                break;
+            }
+        }
 
         // Print result
         System.out.println("Input text: " + input + " is it palindrome? : " + isPalindrome);
