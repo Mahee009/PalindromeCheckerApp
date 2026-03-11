@@ -6,29 +6,26 @@ public class Palindrome {
         java.util.Scanner scanner = new java.util.Scanner(System.in);
 
 
-        // Take input
+        // Take input from user
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
 
-        // Create Queue and Stack
-        java.util.Queue<Character> queue = new java.util.LinkedList<>();
-        java.util.Stack<Character> stack = new java.util.Stack<>();
+        // Create Deque
+        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
 
-        // Enqueue and Push characters
+        // Insert characters into deque
         for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
-            queue.add(ch);   // enqueue
-            stack.push(ch);  // push
+            deque.addLast(input.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        // Compare dequeue (queue) and pop (stack)
-        while (!queue.isEmpty()) {
-            char fromQueue = queue.remove(); // dequeue
-            char fromStack = stack.pop();    // pop
+        // Compare first and last characters
+        while (deque.size() > 1) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
 
-            if (fromQueue != fromStack) {
+            if (first != last) {
                 isPalindrome = false;
                 break;
             }
